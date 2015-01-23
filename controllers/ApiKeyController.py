@@ -1,10 +1,11 @@
 import random
+from bottle import route, template
 
-class ApiKeyController:
-    """
-        The main get endpoint for getting the key to validate system up.
-    """
-    def getIsLiveKey(self, inKey):
-        randKey = random.randint(100000, 999999)
-        key = {"key": randKey, "hash": str(randKey) + inKey}
-        return key
+"""
+    The main get endpoint for getting the key to validate system up.
+"""
+@route('/isLiveKey/<inKey>')
+def getIsLiveKey(inKey):
+    randKey = random.randint(100000, 999999)
+    key = {"key": randKey, "hash": str(randKey) + ":" + inKey}
+    return key
