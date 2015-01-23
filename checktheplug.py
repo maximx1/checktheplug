@@ -1,10 +1,10 @@
-import web
-from controllers.TestController import TestController
+from bottle import route, run, template
+from controllers.ApiKeyController import ApiKeyController
 
-urls = (
-	'/isLiveKey', 'TestController'
-)
+@route('/isLiveKey/<inKey>')
+def isLiveKey(inKey):
+    apiKeyController = ApiKeyController()
+    return apiKeyController.getIsLiveKey(inKey)
 
 if __name__ == "__main__":
-	app = web.application(urls, globals())
-	app.run()
+    run(host='localhost', port=8080)
