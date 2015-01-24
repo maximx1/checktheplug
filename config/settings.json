@@ -1,0 +1,14 @@
+{
+    "default": {
+        "database": "checktheplug.db",
+        "schema": "default.sql",
+        "hostname": "localhost",
+        "port": 8080
+    },
+    "test": {
+        "database": "checktheplug-test.db",
+        "schema": "test.sql",
+        "hostname": "localhost",
+        "port": 8080
+    }
+}
