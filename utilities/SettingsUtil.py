@@ -42,9 +42,9 @@ class SettingsUtil:
         if "-Cconf.database" in options:
             settings.database = options["-Cconf.database"]
         if "-Cconf.schema" in options:
-            settings.database = options["-Cconf.schema"]
+            settings.schema = options["-Cconf.schema"]
         if "-Cconf.hostname" in options:
-            settings.database = options["-Cconf.hostname"]
+            settings.hostname = options["-Cconf.hostname"]
         if "-Cconf.port" in options:
-            settings.database = options["-Cconf.port"]
+            settings.port = options["-Cconf.port"]
         return settings
