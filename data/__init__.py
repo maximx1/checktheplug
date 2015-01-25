@@ -1,1 +1,1 @@
-__all__ = [ "UserDao" ]
+__all__ = [ "UserDao", "AppDao" ]

@@ -1,15 +1,22 @@
 import json
 import sys
 from models.Settings import Settings
-
+"""
+    Utilities to load settings.
+"""
 class SettingsUtil:
+    """
+        Loads settings file from the fs.
+    """
     def __init__(self):
         settingsStream = open('config/settings.json')
         self.settingsData = json.load(settingsStream)
         settingsStream.close()
 
-    def buildConfig(self):
-        print(sys.argv)
+    """
+        Loads config into a settings object.
+    """
+    def loadConfig(self):
         if len(sys.argv) == 1:
             return self.generateConfigItem(self.settingsData["default"])
         else:
@@ -19,9 +26,15 @@ class SettingsUtil:
                 options[flag[0]] = flag[1]
             return self.parseFlags(options)
 
+    """
+        Generates a settings object from the selected profile.
+    """
     def generateConfigItem(self, profile):
         return Settings(profile["database"], profile["schema"], profile["hostname"], profile["port"])
 
+    """
+        Parse flags to selectively flesh out config items.
+    """
     def parseFlags(self, options):
         settings = self.generateConfigItem(self.settingsData["default"])
         if "-Cconf.profile" in options:
