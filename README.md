@@ -9,7 +9,7 @@ A simple web.py utility for serving and managing configs for docker based projec
 #### Requirements
 * Python (built using 3.4)
 * Bottle
-* sqlite (optional)
+* sqlite executable (optional)
 
 #### Steps
 1. Unpack anywhere
