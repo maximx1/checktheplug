@@ -1,9 +1,8 @@
 import random
-from bottle import route, template, request, get, auth_basic
+from bottle import route, get, auth_basic
 from models.AppCommonContainer import AppCommonContainer
 from data.UserDao import UserDao
 from data.AppDao import AppDao
-from passlib.hash import sha256_crypt
 
 """
     Authentication validator

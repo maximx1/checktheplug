@@ -1,1 +1,1 @@
-__all__ = [ "ApiKeyController" ]
+__all__ = [ "ApiKeyController", "PageController" ]

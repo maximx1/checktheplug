@@ -11,4 +11,4 @@ class UserDao:
             row = cur.fetchone()
             if row:
                 return {"id": row[0], "username": row[1], "gravatar": row[2], "admin" : True if row[3] == 1 else False}
-            return {"status": "login failed"}
+            return None
