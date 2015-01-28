@@ -6,7 +6,7 @@ def checkSession(func):
     def wrapped(*args, **kwargs):
         session = request.environ.get('beaker.session')
         if not session.get('user', None):
-            return template('login_page', title='Check The Plug, Time to sign in')
+            redirect('/login')
         return func(*args, **kwargs)
     return wrapped
 
