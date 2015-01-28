@@ -19,3 +19,14 @@ class AppDao:
             cur.execute("select ak.authKey from authKeys ak join applications a on ak.app_id = a.id where a.appshortkey = ? and ak.authKey = ?", (appshortkey, authKey))
             appRow = cur.fetchone()
             return True if appRow else False
+
+    """
+        Determines which ports are left available out of the range allotted
+        * range is set to 9700 - 9799 inclusive. Likely each server isn't going to be hosting 100 apps
+    """
+    def calculateNextPort(self, usedPorts):
+        portRange = set(range(9700, 9800))
+        portsLeft = portRange - set(usedPorts)
+        if portsLeft:
+            return portsLeft.pop()
+        return None

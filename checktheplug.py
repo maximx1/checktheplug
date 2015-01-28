@@ -17,7 +17,7 @@ if __name__ == "__main__":
     appSettings = settingsUtil.loadConfig()
     appContainer = AppCommonContainer()
     appContainer.settings = appSettings
-    DatabaseSchemaBootstrap().bootstrap(appContainer)
+    DatabaseSchemaBootstrap().bootstrap(appContainer.settings)
 
     app = SessionMiddleware(app(), sessionOptions)
 
