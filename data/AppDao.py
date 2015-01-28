@@ -27,6 +27,4 @@ class AppDao:
     def calculateNextPort(self, usedPorts):
         portRange = set(range(9700, 9800))
         portsLeft = portRange - set(usedPorts)
-        if portsLeft:
-            return portsLeft.pop()
-        return None
+        return portsLeft.pop() if portsLeft else None
