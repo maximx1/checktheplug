@@ -8,7 +8,7 @@ class SettingsUtil:
     """
         Loads settings file from the fs.
     """
-    def __init__(self):
+    def loadSettings(self):
         settingsStream = open('config/settings.json')
         self.settingsData = json.load(settingsStream)
         settingsStream.close()

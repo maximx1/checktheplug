@@ -1,22 +1,15 @@
 import unittest
-import os
 from data.AppDao import AppDao
 from models.Settings import Settings
-from utilities.DatabaseSchemaBootstrap import DatabaseSchemaBootstrap
 
 class TestAppDao(unittest.TestCase):
     def setUp(self):
-        self.settings = Settings("checktheplug-test.db", "test.sql", "localhost", 8080)
-        # self.deleteTestDb()
-        # DatabaseSchemaBootstrap().bootstrap(self.settings)
+        self.settings = Settings(":memory:", "test.sql", "localhost", 8080)
+        #DatabaseSchemaBootstrap().bootstrap(self.settings)
         self.appDao = AppDao(self.settings)
 
-    #def tearDown(self):
-        # self.deleteTestDb()
-
-    def deleteTestDb(self):
-        if os.path.isfile(self.settings.database):
-            os.remove(self.settings.database)
+    def tearDown(self):
+        self.appDao.conn.close()
 
     def test_canFindLeftoverPortWhenMultipleAreAvailable(self):
         usedPorts = list(range(9700,9790))
