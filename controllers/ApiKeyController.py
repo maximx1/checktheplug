@@ -29,7 +29,11 @@ def showSettings():
     shownSettings = {"database": app.settings.database, "schema": app.settings.schema, "host": app.settings.hostname, "port": app.settings.port, }
     return shownSettings
 
-@route('/login/<username>/<password>')
-def testLogin(username, password):
-    return UserDao(AppCommonContainer().settings).login(username, password)
+#@route('/login/<username>/<password>')
+#def testLogin(username, password):
+#    return UserDao(AppCommonContainer().settings).login(username, password)
 
+@route('/getEnvVariables/<appshortkey>')
+@auth_basic(authenticateBasicAuth)
+def getEnvVariables(appshortkey):
+    return AppDao(AppCommonContainer().settings).getEnvVariables(appshortkey)

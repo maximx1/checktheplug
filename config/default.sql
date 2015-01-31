@@ -22,3 +22,4 @@ INSERT INTO authKeys(app_id, authKey) values(1, "E8NU3BSSOJSH1XQWAWQZVJ29GCAHP6R
 // Dev Notes. You can ignore the following section.
 // select u.* from users u join applicationAdmins a on a.user_id = u.id where a.app_id = 1;
 // select ak.authKey from authKeys ak join applications a on ak.app_id = a.id where a.appshortkey = ? and ak.authKey = ?
+// select envVariable, envValue from envVariables where app_id = ?

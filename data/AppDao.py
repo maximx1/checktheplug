@@ -13,6 +13,19 @@ class AppDao:
                 return {"appshortkey": appRow[1], "name": appRow[2], "description": appRow[3], "host" : appRow[4]}
             return {"status": "Application short key not found"}
 
+    def getEnvVariables(self, appshortkey):
+        with self.conn:
+            cur = self.conn.cursor()
+            cur.execute("SELECT id from applications where appshortkey=?", (appshortkey,))
+            appRow = cur.fetchone()
+            if appRow:
+                cur.execute("select envVariable, envValue from envVariables where app_id = ?", (appRow[0]))
+                envVarRows = cur.fetchall()
+                if len(envVarRows) > 0:
+                    return {"envVars": }
+                return {"status": "No not found"}
+            return {"status": "Application short key not found"}
+
     def verifyUserAccess(self, appshortkey, authKey):
         with self.conn:
             cur = self.conn.cursor()
