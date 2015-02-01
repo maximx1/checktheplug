@@ -12,6 +12,7 @@ class DatabaseSchemaBootstrap:
                 cursor = conn.cursor()
                 f = open(settings.schema, 'r')
                 for line in f:
+                    line = line.rstrip()
                     if "" != line and not line.startswith("//"):
                         print("Executing: '" + line + "'")
                         cursor.execute(line)
