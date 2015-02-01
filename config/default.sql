@@ -17,6 +17,7 @@ INSERT INTO users(username, password, gravatar) values("user1", "user1", "https:
 INSERT INTO applications(appshortkey, name, description, host, owner_id) values("g0zrN9i1", "example.com", "default site for giggles.", "example.com", 1);
 INSERT INTO applicationAdmins(app_id, user_id) values(1, 2);
 INSERT INTO envVariables(app_id, envVariable, envValue) values(1, "PORT_NUMBER", "3000");
+INSERT INTO envVariables(app_id, envVariable, envValue) values(1, "DB_NAME", "jdbc:h2:mem:testdb");
 INSERT INTO authKeys(app_id, authKey) values(1, "E8NU3BSSOJSH1XQWAWQZVJ29GCAHP6R2WAIQM60E")
 
 // Dev Notes. You can ignore the following section.
