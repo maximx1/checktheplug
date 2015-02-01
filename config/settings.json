@@ -6,7 +6,7 @@
         "port": 8080
     },
     "test": {
-        "database": ':memory:',
+        "database": ":memory:",
         "schema": "config/test.sql",
         "hostname": "localhost",
         "port": 8080

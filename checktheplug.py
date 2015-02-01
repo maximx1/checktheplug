@@ -14,7 +14,7 @@ sessionOptions = {
 
 if __name__ == "__main__":
     settingsUtil = SettingsUtil()
-    settingsUtil.loadConfig()
+    settingsUtil.loadSettings()
     appSettings = settingsUtil.loadConfig()
     appContainer = AppCommonContainer()
     appContainer.settings = appSettings

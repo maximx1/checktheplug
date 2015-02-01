@@ -22,8 +22,8 @@ class AppDao:
                 cur.execute("select envVariable, envValue from envVariables where app_id = ?", (appRow[0]))
                 envVarRows = cur.fetchall()
                 if len(envVarRows) > 0:
-                    return {"envVars": }
-                return {"status": "No not found"}
+                    return {"envVars": map(lambda x: {"key": x[0], "value": x[1]}, envVarRows)}
+                return {"status": "No Environment Variable found for application id"}
             return {"status": "Application short key not found"}
 
     def verifyUserAccess(self, appshortkey, authKey):
