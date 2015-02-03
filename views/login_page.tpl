@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <style>
-      body {
-        padding: 60px 0px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Check The Plug. Sign in time.</h1>
-      <form role="form" method="post" action="/login">
-        <table>
-          <tr>
-            <td class="col-md-2">
-              Username:
-            </td>
-            <td class="col-md-2">
-              <input type="text" name="username" />
-            </td>
-          </tr>
-          <tr>
-            <td class="col-md-2">
-              Password:
-            </td>
-            <td class="col-md-2">
-              <input type="password" name="password" />
-            </td>
-          </tr>
-        </table>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-    </div>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  </body>
+	<head>
+		<title></title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css"
+	</head>
+	<body>
+		<div id="mainContainer">
+			<br />
+			<div class="row">
+				<div class="small-12 medium-8 large-8 push-2 columns text-center">
+				  <h1>Check The Plug. Sign in time.</h1>
+				</div>
+			</div>
+			<form role="form" method="post" action="/login" style="border: solid 1;padding: 1em;">
+				<div class="row">
+					<div class="columns small-12 medium-12 large-4 large-centered">Username:</div>
+					<div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="username" /></div>
+				</div>
+				<div class="row">
+					<div class="columns small-12 medium-12 large-4 large-centered">Password:</div>
+					<div class="columns small-12 medium-12 large-4 large-centered"><input type="password" name="password" /></div>
+				</div>
+				<div class="row">
+					<div class="columns small-12 medium-12 large-4 large-centered"><button type="submit" class="button expand radius">Log In</button></div>
+				</div>
+            </form>
+		</div>
+        <script type="application/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js" />
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation/foundation.abide.js" />
+	</body>
 </html>
