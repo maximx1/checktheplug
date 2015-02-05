@@ -36,3 +36,17 @@ def logout():
     session = request.environ.get('beaker.session')
     session.invalidate()
     redirect('/login')
+
+@get('/search')
+@checkSession
+def loadSearchPage():
+    return template('search_page', title='Check The Plug Search')
+
+@get('/search/:term')
+def loadSearchPageWithTerm(term):
+    return template('search_page', title='Check The Plug Search', searchTerm=term)
+
+@get('/create')
+@checkSession
+def loadCreatePage():
+    return template('create_page', title='Check The Plug Create')
