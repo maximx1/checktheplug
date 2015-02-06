@@ -1,4 +1,5 @@
 import sqlite3
+from models.App import App
 
 class AppDao:
     def __init__(self, settings):
@@ -41,3 +42,11 @@ class AppDao:
         portRange = set(range(9700, 9800))
         portsLeft = portRange - set(usedPorts)
         return portsLeft.pop() if portsLeft else None
+
+    def searchAppByName(self, searchTerm):
+        with self.conn:
+            cur = self.conn.cursor()
+            cur.execute("SELECT id, appshortkey, name, description, host from applications where name like ?", ("%" + searchTerm + "%",))
+            appRows = cur.fetchall()
+            if appRows:
+                return list(map(lambda x: App(x[0], x[1], x[2], x[3], x[4]), appRows))

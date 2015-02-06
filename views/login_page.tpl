@@ -14,12 +14,10 @@
 			</div>
 			<form role="form" method="post" action="/login" style="border: solid 1;padding: 1em;">
 				<div class="row">
-					<div class="columns small-12 medium-12 large-4 large-centered">Username:</div>
-					<div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="username" /></div>
+					<div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="username" placeholder="Username" /></div>
 				</div>
 				<div class="row">
-					<div class="columns small-12 medium-12 large-4 large-centered">Password:</div>
-					<div class="columns small-12 medium-12 large-4 large-centered"><input type="password" name="password" /></div>
+					<div class="columns small-12 medium-12 large-4 large-centered"><input type="password" name="password" placeholder="Password" /></div>
 				</div>
 				<div class="row">
 					<div class="columns small-12 medium-12 large-4 large-centered"><button type="submit" class="button expand radius">Log In</button></div>

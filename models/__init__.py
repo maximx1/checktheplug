@@ -1,1 +1,1 @@
-__all__ = ["Settings", "AppCommonContainer"]
+__all__ = ["Settings", "AppCommonContainer", "App"]
