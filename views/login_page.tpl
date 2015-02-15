@@ -14,7 +14,7 @@
 			</div>
 			<form role="form" method="post" action="/login" style="border: solid 1;padding: 1em;">
 				<div class="row">
-					<div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="username" placeholder="Username" /></div>
+					<div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="username" placeholder="Username" autofocus /></div>
 				</div>
 				<div class="row">
 					<div class="columns small-12 medium-12 large-4 large-centered"><input type="password" name="password" placeholder="Password" /></div>

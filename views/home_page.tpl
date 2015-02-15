@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>{{title}}</title>
+		<title>Check The Plug App Controller</title>
 		<script type="application/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css">
 	</head>
@@ -19,6 +19,9 @@
 					<div class="section top-bar-section">
 						<ul class="right">
 							<li class="active"><a href="/">Home</a></li>
+							% if user and user.admin:
+							<li><a href="#">Admin</a></li>
+							% end
 							<li><a href="#">Api</a></li>
 							<li class="has-dropdown">
 								<a href="#">Applications</a>

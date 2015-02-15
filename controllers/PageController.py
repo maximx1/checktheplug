@@ -1,11 +1,11 @@
 from bottle import get, post, template, request, redirect
 from data.UserDao import UserDao
 from models.AppCommonContainer import AppCommonContainer
+from models.User import User
 
 def checkSession(func):
     def wrapped(*args, **kwargs):
-        session = request.environ.get('beaker.session')
-        if not session.get('user', None):
+        if not extractUserFromSession():
             redirect('/login')
         return func(*args, **kwargs)
     return wrapped
@@ -13,7 +13,7 @@ def checkSession(func):
 @get('/')
 @checkSession
 def loadHomepage():
-    return template('home_page', title='Check The Plug App Controller')
+    return template('home_page', user = extractUserFromSession())
 
 @get('/login')
 def loadLogin():
@@ -50,3 +50,7 @@ def loadSearchPageWithTerm(term):
 @checkSession
 def loadCreatePage():
     return template('create_page', title='Check The Plug Create')
+
+def extractUserFromSession():
+    session = request.environ.get('beaker.session')
+    return session.get('user', None)

@@ -1,4 +1,5 @@
 import sqlite3
+from models.User import User
 
 class UserDao:
     def __init__(self, settings):
@@ -9,6 +10,4 @@ class UserDao:
             cur = self.conn.cursor()
             cur.execute("SELECT id, username, gravatar, admin from users where username=? and password=?", (username, password))
             row = cur.fetchone()
-            if row:
-                return {"id": row[0], "username": row[1], "gravatar": row[2], "admin" : True if row[3] == 1 else False}
-            return None
+            return User(row[0], row[1], row[2], True if row[3] == 1 else False) if row else None
