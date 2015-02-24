@@ -8,15 +8,16 @@ A simple web.py utility for serving and managing configs for docker based projec
 
 #### Requirements
 * Python (built using 3.4)
-* Bottle (pip)
-* Beaker (pip)
+* virtualenv (Optional)
 * sqlite (optional)
 
 #### Steps
 1. Unpack anywhere
 2. Modify settings.json to meet your requirements
 3. Modify the default.sql with admin data
-3. run `python checktheplug.py`
+4. Optionally you can create a virtualenv - `virtualenv venv && source venv/bin/activate`
+5. run `pip install -r requirements.txt`
+6. run `python checktheplug.py`
     * This will automatically create a database and load the initial users if the db doesn't exist.
     * Unless you change it admin password is admin.
 
