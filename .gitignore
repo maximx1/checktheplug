@@ -5,3 +5,4 @@
 *.db
 *.swp
 .session_cache/
+venv/
