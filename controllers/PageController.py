@@ -43,7 +43,7 @@ def logout():
 def loadSearchPage():
     return template('search_page', title='Check The Plug Search')
 
-@get('/search/:term')
+@get('/search/<term>')
 def loadSearchPageWithTerm(term):
     return template('search_page', title='Check The Plug Search', searchTerm=term)
 
@@ -64,9 +64,25 @@ def attemptCreatePage():
         if newId == -1:
             return template('create_page', title='Check The Plug Create', message=message)
         else:
-            return template('display_app_page', title='New App: ' + newAppShortKey, message='New App: ' + str(newId))
+            redirect('/app/' + str(newId))
 
-    
+@get('/app/<id>')
+@checkSession
+def loadAppPage(id):
+    user = extractUserFromSession()
+    appDao = AppDao(AppCommonContainer().settings)
+    results = appDao.getAppDetailsById(id)
+    message = "Access Denied"
+    canDisplayContents = False
+    if "status" in results:
+        message = results["status"]
+    else:
+        if user.id != int(results["owner"]):
+            if appDao.verifyUserAccessToApp(user.id, id, True):
+                canDisplayContents = True
+        else:
+            canDisplayContents = True
+    return template('display_app_page', title='App Information', message=None if canDisplayContents else message, appData=results if canDisplayContents else None)
 
 def extractUserFromSession():
     session = request.environ.get('beaker.session')

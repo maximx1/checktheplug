@@ -36,29 +36,28 @@
 			<br />
             <div class="row">
                 <div class="small-12 medium-8 large-8 push-2 columns text-center">
-                  <h2>Creating a new application<br />Fill out the data</h2>
+                  %if appData:
+                    <h2>App Id: {{ appData["id"] }}</h2>
+                  %end
                 </div>
             </div>
             <div class="row">
                 <div class="small-12 medium-8 large-8 push-2 columns text-center">
-                  <h4>{{message}}</h4>
+                  <h4>{{message if message else ""}}</h4>
                 </div>
             </div>
 			<div class="row">
-              <form role="form" method="post" action="/create" style="border: solid 1;padding: 1em;">
                 <div class="row">
-                    <div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="appname" placeholder="Application Name" autofocus /></div>
+                    <div class="columns small-12 medium-12 large-4 large-centered">
+                        %if appData:
+                            <p>App shortkey: {{ appData["appshortkey"] }}</p>
+                            <p>Name: {{ appData["name"] }}</p>
+                            <p>Description: {{ appData["description"] }}</p>
+                            <p>Host: {{ appData["host"] }}</p>
+                            <p>Owner: {{ appData["owner"] }}</p>
+                        %end
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="description" placeholder="Description" /></div>
-                </div>
-                <div class="row">
-                    <div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="host" placeholder="Host" /></div>
-                </div>
-                <div class="row">
-                    <div class="columns small-12 medium-12 large-4 large-centered"><button type="submit" class="button expand radius">Create Application</button></div>
-                </div>
-              </form>
 			</div>
 		</div>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>

@@ -23,6 +23,11 @@ def getIsLiveKey(inKey):
 def getAppDetails(appshortkey):
     return AppDao(AppCommonContainer().settings).getAppDetails(appshortkey)
 
+@get('/getAppDetailsById/<id>')
+@auth_basic(authenticateBasicAuth)
+def getAppDetailsById(id):
+    return AppDao(AppCommonContainer().settings).getAppDetailsById(id)
+
 @route('/settings')
 def showSettings():
     app = AppCommonContainer()

@@ -13,16 +13,46 @@ class AppDao:
         self.conn = sqlite3.connect(settings.database)
 
     """
-        Gets the app's details.
+        Gets the app's details from its shortkey
     """
     def getAppDetails(self, appshortkey):
         with self.conn:
             cur = self.conn.cursor()
-            cur.execute("SELECT id, appshortkey, name, description, host from applications where appshortkey=?", (appshortkey,))
+            cur.execute("SELECT id, appshortkey, name, description, host, owner_id from applications where appshortkey=?", (appshortkey,))
             appRow = cur.fetchone()
             if appRow:
-                return {"appshortkey": appRow[1], "name": appRow[2], "description": appRow[3], "host" : appRow[4]}
+                return {"id": appRow[0], "appshortkey": appRow[1], "name": appRow[2], "description": appRow[3], "host" : appRow[4], "owner": appRow[5]}
             return {"status": "Application short key not found"}
+
+    """
+        Gets the app's details from its id
+    """
+    def getAppDetailsById(self, id):
+        with self.conn:
+            cur = self.conn.cursor()
+            cur.execute("SELECT id, appshortkey, name, description, host, owner_id from applications where id=?", (id,))
+            appRow = cur.fetchone()
+            if appRow:
+                return {"id": appRow[0], "appshortkey": appRow[1], "name": appRow[2], "description": appRow[3], "host" : appRow[4], "owner": appRow[5]}
+            return {"status": "id not found"}
+    
+    """
+        Verifies that if the app not the owner, that they are at least allowed to access it.
+    """
+    def verifyUserAccessToApp(self, userId, appId, userOwnerChecked=False):
+        with self.conn:
+            cur = self.conn.cursor()
+            if not userOwnerChecked:
+                cur.execute("SELECT * from applications where id=? and owner_id=?", (appId, userId))
+                appRow = cur.fetchone()
+                if appRow:
+                    return True
+            else:
+                cur.execute("SELECT * from applications a inner join applicationAdmins aa on a.id = aa.app_id where a.id=? and aa.user_id=?", (appId, userId))
+                appRow = cur.fetchone()
+                if appRow:
+                    return True
+            return False
 
     """
         Gets the env variables from the appshortkey.
