@@ -28,4 +28,4 @@ There are a set of items that you can run on the command line
 If you wish to crack open and look at the database you will need to install [sqlite](http://www.sqlite.org/)
 
 #### Design
-![Database Design](project_misc/database_diagram.png?raw=true "Database Design")
+![Database Design](project_misc/database_diagram.png "Database Design")
