@@ -19,6 +19,8 @@ INSERT INTO applicationAdmins(app_id, user_id) values(1, 2);
 INSERT INTO envVariables(app_id, envVariable, envValue) values(1, "PORT_NUMBER", "3000");
 INSERT INTO envVariables(app_id, envVariable, envValue) values(1, "DB_NAME", "jdbc:h2:mem:testdb");
 INSERT INTO authKeys(app_id, authKey) values(1, "E8NU3BSSOJSH1XQWAWQZVJ29GCAHP6R2WAIQM60E")
+// I generated the authKey with n = 40
+
 
 // Dev Notes. You can ignore the following section.
 // select u.* from users u join applicationAdmins a on a.user_id = u.id where a.app_id = 1;

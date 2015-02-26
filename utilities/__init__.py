@@ -1,1 +1,1 @@
-__all__ = [ "SettingsUtil", "DatabaseSchemaBootstrap"]
+__all__ = [ "SettingsUtil", "DatabaseSchemaBootstrap", "StringOps"]

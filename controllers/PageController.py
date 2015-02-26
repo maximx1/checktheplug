@@ -1,5 +1,6 @@
 from bottle import get, post, template, request, redirect
 from data.UserDao import UserDao
+from data.AppDao import AppDao
 from models.AppCommonContainer import AppCommonContainer
 from models.User import User
 
@@ -49,7 +50,23 @@ def loadSearchPageWithTerm(term):
 @get('/create')
 @checkSession
 def loadCreatePage():
-    return template('create_page', title='Check The Plug Create')
+    return template('create_page', title='Check The Plug Create', message=None)
+
+@post('/create')
+@checkSession
+def attemptCreatePage():
+    appname = request.forms.get('appname')
+    description = request.forms.get('description')
+    host = request.forms.get('host')
+    user = extractUserFromSession()
+    if user:
+        newId, newAppShortKey, message = AppDao(AppCommonContainer().settings).createNewApp(user, appname, description, host)
+        if newId == -1:
+            return template('create_page', title='Check The Plug Create', message=message)
+        else:
+            return template('display_app_page', title='New App: ' + newAppShortKey, message='New App: ' + str(newId))
+
+    
 
 def extractUserFromSession():
     session = request.environ.get('beaker.session')

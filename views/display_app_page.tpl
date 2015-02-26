@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="small-12 medium-8 large-8 push-2 columns text-center">
-                  <h4 style="color:red">{{message if message else ""}}</h4>
+                  <h4>{{message}}</h4>
                 </div>
             </div>
 			<div class="row">

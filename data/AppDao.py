@@ -1,10 +1,20 @@
 import sqlite3
 from models.App import App
+from utilities.StringOps import randomAlphaNumeric
 
+"""
+    Actions surrounding the apps from the database.
+"""
 class AppDao:
+    """
+        Sets up the object with the sql connection.
+    """
     def __init__(self, settings):
         self.conn = sqlite3.connect(settings.database)
 
+    """
+        Gets the app's details.
+    """
     def getAppDetails(self, appshortkey):
         with self.conn:
             cur = self.conn.cursor()
@@ -14,6 +24,9 @@ class AppDao:
                 return {"appshortkey": appRow[1], "name": appRow[2], "description": appRow[3], "host" : appRow[4]}
             return {"status": "Application short key not found"}
 
+    """
+        Gets the env variables from the appshortkey.
+    """
     def getEnvVariables(self, appshortkey):
         with self.conn:
             cur = self.conn.cursor()
@@ -27,6 +40,9 @@ class AppDao:
                 return {"status": "No Environment Variable found for application id"}
             return {"status": "Application short key not found"}
 
+    """
+        Verifies that the authKey is registered to the appshortkey.
+    """
     def verifyUserAccess(self, appshortkey, authKey):
         with self.conn:
             cur = self.conn.cursor()
@@ -43,6 +59,9 @@ class AppDao:
         portsLeft = portRange - set(usedPorts)
         return portsLeft.pop() if portsLeft else None
 
+    """
+        Searches up an app by it's name.
+    """
     def searchAppByName(self, searchTerm):
         with self.conn:
             cur = self.conn.cursor()
@@ -50,3 +69,17 @@ class AppDao:
             appRows = cur.fetchall()
             if appRows:
                 return list(map(lambda x: App(x[0], x[1], x[2], x[3], x[4]), appRows))
+
+    """
+        Creates a new app. Will return -1 and a message if there is any issues with the database.
+    """
+    def createNewApp(self, user, appname, description, host):
+        with self.conn:
+            try:
+                cur = self.conn.cursor()
+                newAppShortKey = randomAlphaNumeric()
+                print(newAppShortKey)
+                cur.execute("INSERT INTO applications(appshortkey, name, description, host, owner_id) values(?, ?, ?, ?, ?)", (newAppShortKey, appname, description, host, user.id))
+                return (cur.lastrowid, newAppShortKey, None)
+            except Exception as er:
+                return (-1, None, "There was a db issue: " + str(er))
