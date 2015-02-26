@@ -1,4 +1,4 @@
-from bottle import get, post, template, request, redirect
+from bottle import get, post, template, request, redirect, static_file
 from data.UserDao import UserDao
 from data.AppDao import AppDao
 from models.AppCommonContainer import AppCommonContainer
@@ -41,7 +41,7 @@ def logout():
 @get('/search')
 @checkSession
 def loadSearchPage():
-    return template('search_page', title='Check The Plug Search')
+    return template('search_page', title='Check The Plug Search', searchTerm=None)
 
 @get('/search/<term>')
 def loadSearchPageWithTerm(term):
@@ -87,3 +87,20 @@ def loadAppPage(id):
 def extractUserFromSession():
     session = request.environ.get('beaker.session')
     return session.get('user', None)
+
+# Static Routes a la - http://stackoverflow.com/questions/10486224/bottle-static-files
+@get('/<filename:re:.*\.js>')
+def javascripts(filename):
+    return static_file(filename, root='static/js')
+
+@get('/<filename:re:.*\.css>')
+def stylesheets(filename):
+    return static_file(filename, root='static/css')
+
+@get('/<filename:re:.*\.(jpg|png|gif|ico)>')
+def images(filename):
+    return static_file(filename, root='static/img')
+
+@get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+def fonts(filename):
+    return static_file(filename, root='static/fonts')
