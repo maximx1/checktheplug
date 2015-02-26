@@ -34,9 +34,17 @@
 			</div>
 			<div class="header-fill"></div>
 			<div class="row">
-				<div class="small-12 medium-8 large-8 push-2 columns text-center">
-				  <h1>Successfully signed in</h1>
-				</div>
+              <form role="form" method="post" action="/login" style="border: solid 1;padding: 1em;">
+                <div class="row">
+                    <div class="columns small-12 medium-12 large-4"><input type="text" name="app name" placeholder="Username" autofocus /></div>
+                </div>
+                <div class="row">
+                    <div class="columns small-12 medium-12 large-4"><input type="password" name="password" placeholder="Password" /></div>
+                </div>
+                <div class="row">
+                    <div class="columns small-12 medium-12 large-4"><button type="submit" class="button expand radius">Log In</button></div>
+                </div>
+              </form>
 			</div>
 		</div>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
