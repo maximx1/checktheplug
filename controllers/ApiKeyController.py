@@ -13,17 +13,17 @@ def authenticateBasicAuth(appshortkey, authKey):
 """
     The main get endpoint for getting the key to validate system up.
 """
-@route('/isLiveKey/<inKey>')
+@route('/api/test/<inKey>')
 def getIsLiveKey(inKey):
     randKey = random.randint(100000, 999999)
     return {"key": randKey, "hash": str(randKey) + ":" + inKey}
 
-@get('/getAppDetails/<appshortkey>')
+@get('/api/app/key/<appshortkey>')
 @auth_basic(authenticateBasicAuth)
 def getAppDetails(appshortkey):
     return AppDao(AppCommonContainer().settings).getAppDetails(appshortkey)
 
-@get('/getAppDetailsById/<id>')
+@get('/api/app/id/<id>')
 @auth_basic(authenticateBasicAuth)
 def getAppDetailsById(id):
     return AppDao(AppCommonContainer().settings).getAppDetailsById(id)
@@ -34,7 +34,14 @@ def showSettings():
     shownSettings = {"database": app.settings.database, "schema": app.settings.schema, "host": app.settings.hostname, "port": app.settings.port, }
     return shownSettings
 
-@route('/getEnvVariables/<appshortkey>')
+@route('/api/app/env/vars/<appshortkey>')
 @auth_basic(authenticateBasicAuth)
 def getEnvVariables(appshortkey):
     return AppDao(AppCommonContainer().settings).getEnvVariables(appshortkey)
+
+@route('/api/app/search/<searchTerm>')
+def getAppsByName(searchTerm):
+    apps = AppDao(AppCommonContainer().settings).searchAppsByName(searchTerm)
+    if apps:
+        return {"status": "ok", "apps": list(map(lambda x: x.toDict(), apps))}
+    return {"status": "none"}

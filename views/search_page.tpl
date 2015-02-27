@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css">
 	</head>
 	<body>
+	    <script type="text/javascript" src="/search.js"></script>
 		<div id="mainContainer">
 			<div class="contain-to-grid header-section">
 			    <nav class="top-bar" data-topbar>
@@ -35,11 +36,15 @@
 			<div class="header-fill"></div>
 			<div class="row">Search:</div>
             <div class="row">
-                <div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="searchterm" placeholder="Search Applications" autofocus value='{{ searchTerm if searchTerm else "" }}' /></div>
+                <div class="columns small-12 medium-12 large-4 large-centered"><input id="searchBox" type="text" name="searchterm" placeholder="Search Applications" autofocus value='{{ searchTerm if searchTerm else "" }}' /></div>
             </div>
             <div class="row">
                 <div class="columns small-12 medium-12 large-4 large-centered"><button type="submit" class="button expand radius">Search By Name</button></div>
             </div>
+            <div class="row">
+                <table id="searchResultsTable"></table>
+            </div>
+
 		</div>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
 		<script>

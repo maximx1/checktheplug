@@ -92,7 +92,7 @@ class AppDao:
     """
         Searches up an app by it's name.
     """
-    def searchAppByName(self, searchTerm):
+    def searchAppsByName(self, searchTerm):
         with self.conn:
             cur = self.conn.cursor()
             cur.execute("SELECT id, appshortkey, name, description, host from applications where name like ?", ("%" + searchTerm + "%",))
