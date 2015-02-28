@@ -1,5 +1,5 @@
 import random
-from bottle import route, get, auth_basic
+from bottle import route, get, auth_basic, request
 from models.AppCommonContainer import AppCommonContainer
 from data.UserDao import UserDao
 from data.AppDao import AppDao
@@ -39,8 +39,9 @@ def showSettings():
 def getEnvVariables(appshortkey):
     return AppDao(AppCommonContainer().settings).getEnvVariables(appshortkey)
 
-@route('/api/app/search/<searchTerm>')
-def getAppsByName(searchTerm):
+@route('/api/app/search/', method='POST')
+def getAppsByName():
+    searchTerm = request.json['searchTerm']
     apps = AppDao(AppCommonContainer().settings).searchAppsByName(searchTerm)
     if apps:
         return {"status": "ok", "apps": list(map(lambda x: x.toDict(), apps))}

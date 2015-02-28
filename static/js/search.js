@@ -6,6 +6,7 @@ $(document).ready(function() {
         clearTimeout(timer);
         timer = setTimeout(queryData, delay );
     });
+    queryData();
 });
 
 var queryData = function() {
@@ -15,8 +16,10 @@ var queryData = function() {
     }
     else {
         $.ajax({
-            type: "GET",
-            url: "/api/app/search/" + searchParam,
+            type: "POST",
+            url: "/api/app/search/",
+            data: JSON.stringify({ searchTerm: searchParam }),
+            contentType: "application/json",
             success: function(data, textStatus, jqXHR) {
                 updateTable(data);
             }
