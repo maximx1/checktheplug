@@ -22,7 +22,12 @@ A simple web.py utility for serving and managing configs for docker based projec
     * Unless you change it admin password is admin.
 
 #### Flags
-There are a set of items that you can run on the command line
+There are a set of items that you can run on the command line.
+* `-Cconf.profile <profile name>`
+* `-Cconf.database <dbName>`
+* `-Cconf.schema <schema filename>`
+* `-Cconf.hostname <hostname to run as>`
+* `-Cconf.port <port number>`
 
 ### Data
 If you wish to crack open and look at the database you will need to install [sqlite](http://www.sqlite.org/)
