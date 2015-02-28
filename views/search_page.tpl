@@ -34,15 +34,26 @@
 				</nav>
 			</div>
 			<div class="header-fill"></div>
-			<div class="row">Search:</div>
+			<br />
             <div class="row">
                 <div class="columns small-12 medium-12 large-4 large-centered"><input id="searchBox" type="text" name="searchterm" placeholder="Search Applications" autofocus value='{{ searchTerm if searchTerm else "" }}' /></div>
             </div>
             <div class="row">
-                <div class="columns small-12 medium-12 large-4 large-centered"><button type="submit" class="button expand radius">Search By Name</button></div>
-            </div>
-            <div class="row">
-                <table id="searchResultsTable"></table>
+                <div class="columns small-12 medium-12 large-8 large-centered">
+                    <table id="searchResultsTable" style="min-width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Key</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Host</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                   </div>
             </div>
 
 		</div>

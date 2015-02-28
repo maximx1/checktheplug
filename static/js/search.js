@@ -12,7 +12,7 @@ $(document).ready(function() {
 var queryData = function() {
     var searchParam = $("#searchBox").val();
     if(searchParam.match(/^\s*$/g)) {
-        $("#searchResultsTable").html("");
+        $("#searchResultsTable").children("tbody").html("<tr><td colspan='5'>No Search Results</td></tr>");
     }
     else {
         $.ajax({
@@ -29,20 +29,18 @@ var queryData = function() {
 
 var updateTable = function(data) {
     if(data.status == "ok") {
-        var tdata = "";
-        var apps = data.apps;
-        for(i = 0; i < apps.length; i++) {
-            tdata += "<tr>";
-            tdata += "<td>" + apps[i].id + "</td>";
-            tdata += "<td>" + apps[i].appshortkey + "</td>";
-            tdata += "<td>" + apps[i].name + "</td>";
-            tdata += "<td>" + apps[i].description + "</td>";
-            tdata += "<td>" + apps[i].host + "</td>";
-            tdata += "</tr>";
-        }
-        $("#searchResultsTable").html(tdata);
+        $("#searchResultsTable").children("tbody").html(data.apps.map(mapAppToRow).join(""));
+        console.log("Hit")
     }
-    else {
-        $("#searchResultsTable").html("<h3>No Search Results</h3>");
-    }
+}
+
+var mapAppToRow = function(app) {
+    var tdata = "<tr>";
+    tdata += "<td>" + app.id + "</td>";
+    tdata += "<td>" + app.appshortkey + "</td>";
+    tdata += "<td>" + app.name + "</td>";
+    tdata += "<td>" + app.description + "</td>";
+    tdata += "<td>" + app.host + "</td>";
+    tdata += "</tr>";
+    return tdata;
 }
