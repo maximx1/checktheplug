@@ -3,6 +3,7 @@ from data.UserDao import UserDao
 from data.AppDao import AppDao
 from models.AppCommonContainer import AppCommonContainer
 from models.User import User
+import base64
 
 def checkSession(func):
     def wrapped(*args, **kwargs):
@@ -59,8 +60,10 @@ def attemptCreatePage():
     description = request.forms.get('description')
     host = request.forms.get('host')
     user = extractUserFromSession()
+    dockerfile = request.files.get('dockerfile')
+    dockerfileEncoded = base64.b64encode(dockerfile.file.read()).decode("utf-8") if dockerfile else ""
     if user:
-        newId, newAppShortKey, message = AppDao(AppCommonContainer().settings).createNewApp(user, appname, description, host)
+        newId, newAppShortKey, message = AppDao(AppCommonContainer().settings).createNewApp(user, appname, description, host, dockerfileEncoded)
         if newId == -1:
             return template('create_page', title='Check The Plug Create', message=message)
         else:

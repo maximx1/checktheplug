@@ -45,7 +45,7 @@
                 </div>
             </div>
 			<div class="row">
-              <form role="form" method="post" action="/create" style="border: solid 1;padding: 1em;">
+              <form role="form" method="post" action="/create" enctype="multipart/form-data" style="border: solid 1;padding: 1em;">
                 <div class="row">
                     <div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="appname" placeholder="Application Name" autofocus /></div>
                 </div>
@@ -54,6 +54,9 @@
                 </div>
                 <div class="row">
                     <div class="columns small-12 medium-12 large-4 large-centered"><input type="text" name="host" placeholder="Host" /></div>
+                </div>
+                <div class="row">
+                    <div class="columns small-12 medium-12 large-4 large-centered"><input type="file" name="dockerfile" /></div>
                 </div>
                 <div class="row">
                     <div class="columns small-12 medium-12 large-4 large-centered"><button type="submit" class="button expand radius">Create Application</button></div>

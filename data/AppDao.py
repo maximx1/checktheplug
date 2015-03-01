@@ -103,13 +103,12 @@ class AppDao:
     """
         Creates a new app. Will return -1 and a message if there is any issues with the database.
     """
-    def createNewApp(self, user, appname, description, host):
+    def createNewApp(self, user, appname, description, host, dockerfile):
         with self.conn:
             try:
                 cur = self.conn.cursor()
                 newAppShortKey = randomAlphaNumeric()
-                print(newAppShortKey)
-                cur.execute("INSERT INTO applications(appshortkey, name, description, host, owner_id) values(?, ?, ?, ?, ?)", (newAppShortKey, appname, description, host, user.id))
+                cur.execute("INSERT INTO applications(appshortkey, name, description, host, owner_id, dockerfile) values(?, ?, ?, ?, ?, ?)", (newAppShortKey, appname, description, host, user.id, dockerfile))
                 return (cur.lastrowid, newAppShortKey, None)
             except Exception as er:
                 return (-1, None, "There was a db issue: " + str(er))
