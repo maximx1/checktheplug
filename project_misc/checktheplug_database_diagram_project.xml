@@ -10,7 +10,7 @@
         </Counter>
         <Counter>
             <Name>column</Name>
-            <Value>41</Value>
+            <Value>42</Value>
             <Prefix>c</Prefix>
         </Counter>
         <Counter>
@@ -210,6 +210,16 @@
                 <Column Id="c34">
                     <Name>owner_id</Name>
                     <Type>integer</Type>
+                    <Description></Description>
+                    <Nullable>false</Nullable>
+                    <PK>false</PK>
+                    <DefaultValue></DefaultValue>
+                    <CheckExpression></CheckExpression>
+                    <Properties/>
+                </Column>
+                <Column Id="c42">
+                    <Name>dockerfile</Name>
+                    <Type>text</Type>
                     <Description></Description>
                     <Nullable>false</Nullable>
                     <PK>false</PK>
