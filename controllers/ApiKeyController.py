@@ -1,5 +1,5 @@
 import random
-from bottle import route, get, auth_basic, request
+from bottle import get, post, auth_basic, request
 from models.AppCommonContainer import AppCommonContainer
 from data.UserDao import UserDao
 from data.AppDao import AppDao
@@ -13,36 +13,48 @@ def authenticateBasicAuth(appshortkey, authKey):
 """
     The main get endpoint for getting the key to validate system up.
 """
-@route('/api/test/<inKey>')
+@get('/api/test/<inKey>')
 def getIsLiveKey(inKey):
     randKey = random.randint(100000, 999999)
     return {"key": randKey, "hash": str(randKey) + ":" + inKey}
 
-@get('/api/app/key/<appshortkey>')
+@post('/api/app/lookup')
 @auth_basic(authenticateBasicAuth)
-def getAppDetails(appshortkey):
+def getAppDetails():
+    appshortkey, _ = request.auth or (None, None)
+    if request.json:
+        id = request.json.get('id', None)
+        if id:
+            result = AppDao(AppCommonContainer().settings).getAppDetailsById(id)
+            retrievedAppShortKey = result.get('appshortkey', None)
+            if retrievedAppShortKey and appshortkey != retrievedAppShortKey:
+                return {"status": "appshortkey doesn't belong to id"}
+            return result
     return AppDao(AppCommonContainer().settings).getAppDetails(appshortkey)
 
-@get('/api/app/id/<id>')
-@auth_basic(authenticateBasicAuth)
-def getAppDetailsById(id):
-    return AppDao(AppCommonContainer().settings).getAppDetailsById(id)
-
-@route('/settings')
+@get('/settings')
 def showSettings():
     app = AppCommonContainer()
     shownSettings = {"database": app.settings.database, "schema": app.settings.schema, "host": app.settings.hostname, "port": app.settings.port, }
     return shownSettings
 
-@route('/api/app/env/vars/<appshortkey>')
+@post('/api/app/env/vars')
 @auth_basic(authenticateBasicAuth)
-def getEnvVariables(appshortkey):
+def getEnvVariables():
+    appshortkey, _ = request.auth or (None, None)
     return AppDao(AppCommonContainer().settings).getEnvVariables(appshortkey)
 
-@route('/api/app/search/', method='POST')
+@post('/api/app/search')
 def getAppsByName():
     searchTerm = request.json['searchTerm']
     apps = AppDao(AppCommonContainer().settings).searchAppsByName(searchTerm)
     if apps:
         return {"status": "ok", "apps": list(map(lambda x: x.toDict(), apps))}
     return {"status": "none"}
+
+@get('/api/app/files/docker')
+@auth_basic(authenticateBasicAuth)
+def getAppDockerfile():
+    appshortkey, _ = request.auth or (None, None)
+    dockerfile = AppDao(AppCommonContainer().settings).getAppDockerfile(appshortkey)
+    return {"dockerfile": dockerfile}

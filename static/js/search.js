@@ -17,7 +17,7 @@ var queryData = function() {
     else {
         $.ajax({
             type: "POST",
-            url: "/api/app/search/",
+            url: "/api/app/search",
             data: JSON.stringify({ searchTerm: searchParam }),
             contentType: "application/json",
             success: function(data, textStatus, jqXHR) {

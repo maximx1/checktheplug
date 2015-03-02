@@ -112,3 +112,13 @@ class AppDao:
                 return (cur.lastrowid, newAppShortKey, None)
             except Exception as er:
                 return (-1, None, "There was a db issue: " + str(er))
+            
+    """
+        Grabs just the dockerfile base64 code from the database.
+    """
+    def getAppDockerfile(self, appshortkey):
+        with self.conn:
+            cur = self.conn.cursor()
+            cur.execute("SELECT dockerfile from applications where appshortkey = ?", (appshortkey,))
+            dockerfileRow = cur.fetchone()
+            return dockerfileRow[0] if dockerfileRow else ""
