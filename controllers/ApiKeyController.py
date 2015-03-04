@@ -11,6 +11,12 @@ def authenticateBasicAuth(appshortkey, authKey):
     return AppDao(AppCommonContainer().settings).verifyUserAccess(appshortkey, authKey)
 
 """
+    Authenticate Application server
+"""
+def authenticateServer(id, key):
+    return True
+
+"""
     The main get endpoint for getting the key to validate system up.
 """
 @get('/api/test/<inKey>')
@@ -58,3 +64,10 @@ def getAppDockerfile():
     appshortkey, _ = request.auth or (None, None)
     dockerfile = AppDao(AppCommonContainer().settings).getAppDockerfile(appshortkey)
     return {"dockerfile": dockerfile}
+
+@post('/api/server/new')
+@auth_basic(authenticateServer)
+def addNewServer():
+    if not request.json:
+        return {"status": "No json data found"}
+    request.json

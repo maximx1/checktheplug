@@ -5,4 +5,10 @@ class Server:
         self.ipv4 = ipv4
     
     def toDict(self):
-        return {"id": self.id, "host": self.host, "ipv4": self.ipv4}
+        return self.__dict__
+    
+    @staticmethod
+    def fromDict(serverDict):
+        if serverDict and "id" in serverDict and "host" in serverDict and "ipv4" in serverDict:
+            return Server(serverDict["id"], serverDict["host"], serverDict["ipv4"])
+        return None
