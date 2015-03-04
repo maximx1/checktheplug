@@ -1,5 +1,5 @@
 CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, gravatar TEXT, admin INTEGER NOT NULL DEFAULT 0);
-CREATE TABLE servers(id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT NOT NULL)
+CREATE TABLE servers(id INTEGER PRIMARY KEY AUTOINCREMENT, hostname TEXT NOT NULL, ipv4 TEXT NOT NULL UNIQUE);
 CREATE TABLE applications(id INTEGER PRIMARY KEY AUTOINCREMENT, appshortkey TEXT NOT NULL UNIQUE, name TEXT NOT NULL, description TEXT, host TEXT NOT NULL, owner_id INTEGER NOT NULL, dockerfile TEXT NOT NULL, FOREIGN KEY(owner_id) REFERENCES users(id))
 CREATE TABLE applicationAdmins(app_id INTEGER, user_id INTEGER, PRIMARY KEY (app_id, user_id), FOREIGN KEY(app_id) REFERENCES applications(id), FOREIGN KEY(user_id) REFERENCES users(id));
 CREATE TABLE envVariables(app_id INTEGER, envVariable TEXT, envValue TEXT, PRIMARY KEY (app_id, envVariable), FOREIGN KEY(app_id) REFERENCES applications(id));
