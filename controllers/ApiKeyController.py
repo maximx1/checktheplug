@@ -1,6 +1,7 @@
 import random
 from bottle import get, post, auth_basic, request
 from models.AppCommonContainer import AppCommonContainer
+from models.Server import Server
 from data.UserDao import UserDao
 from data.AppDao import AppDao
 
@@ -69,5 +70,9 @@ def getAppDockerfile():
 @auth_basic(authenticateServer)
 def addNewServer():
     if not request.json:
-        return {"status": "No json data found"}
-    request.json
+        return {"status": "error", "message": "No json data found"}
+    server = Server.fromDict(request.json)
+    if server:
+        # TODO: add server to db
+        return {"status": "ok", "message": ""}
+    return {"status": "error", "message": "Sent data incorrect"}
