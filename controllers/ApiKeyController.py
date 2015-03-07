@@ -4,6 +4,8 @@ from models.AppCommonContainer import AppCommonContainer
 from models.Server import Server
 from data.UserDao import UserDao
 from data.AppDao import AppDao
+from data.ServerDao import ServerDao
+from models.BasicResponse import BasicResponse
 
 """
     Authentication validator
@@ -23,7 +25,7 @@ def authenticateServer(id, key):
 @get('/api/test/<inKey>')
 def getIsLiveKey(inKey):
     randKey = random.randint(100000, 999999)
-    return {"key": randKey, "hash": str(randKey) + ":" + inKey}
+    return BasicResponse(randKey, "hash" + str(randKey) + ":" + inKey)
 
 @post('/api/app/lookup')
 @auth_basic(authenticateBasicAuth)
@@ -57,7 +59,7 @@ def getAppsByName():
     apps = AppDao(AppCommonContainer().settings).searchAppsByName(searchTerm)
     if apps:
         return {"status": "ok", "apps": list(map(lambda x: x.toDict(), apps))}
-    return {"status": "none"}
+    return BasicResponse("none", "Search term not found")
 
 @get('/api/app/files/docker')
 @auth_basic(authenticateBasicAuth)
@@ -73,6 +75,6 @@ def addNewServer():
         return {"status": "error", "message": "No json data found"}
     server = Server.fromDict(request.json)
     if server:
-        # TODO: add server to db
-        return {"status": "ok", "message": ""}
-    return {"status": "error", "message": "Sent data incorrect"}
+        ServerDao(AppCommonContainer().settings).add(server)
+        return BasicResponse("ok").toDict()
+    return BasicResponse("error", "Sent data incorrect").toDict()
