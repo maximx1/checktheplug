@@ -70,10 +70,10 @@ def getAppDockerfile():
 
 @post('/api/server/new')
 @auth_basic(authenticateServer)
-def addNewServer():
+def add_new_server():
     if not request.json:
         return {"status": "error", "message": "No json data found"}
-    server = Server.fromDict(request.json)
+    server = Server.from_dict(request.json)
     if server:
         ServerDao(AppCommonContainer().settings).add(server)
         return BasicResponse("ok").toDict()
