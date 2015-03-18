@@ -51,6 +51,19 @@ class ServerDao:
                 return (list(map(lambda x: Server(x[0], x[1], x[2], None), server_rows)), None)
         except Exception as er:
             return (None, "There was a db issue: " + str(er))
+
+    """
+        Retrieve all servers.
+    """
+    def retrieve_all_servers(self):
+        try:
+            with self.conn:
+                cur = self.conn.cursor()
+                cur.execute("SELECT id, host, url from servers")
+                server_rows = cur.fetchall()
+                return (list(map(lambda x: Server(x[0], x[1], x[2], None), server_rows)), None)
+        except Exception as er:
+            return (None, "There was a db issue: " + str(er))
         
     """
         Tie an app to a number of servers.
@@ -60,7 +73,7 @@ class ServerDao:
             with self.conn:
                 cur = self.conn.cursor()
                 server_id_string = ', '.join("?" * available_servers)
-                cur.execute("update servers set app_id = ? where id in {0}".format(server_id_string), tuple([app_id] + available_servers))
+                cur.execute("update servers set app_id = ? where id in ({0})".format(server_id_string), tuple([app_id] + available_servers))
                 return (None, "ok")
         except Exception as er:
             return (None, "There was a db issue: " + str(er))

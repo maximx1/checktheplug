@@ -1,4 +1,5 @@
 from bottle import get, post, template, request, redirect, static_file
+from data.ServerDao import ServerDao
 from data.UserDao import UserDao
 from data.AppDao import AppDao
 from models.AppCommonContainer import AppCommonContainer
@@ -90,6 +91,15 @@ def loadAppPage(id):
 def extractUserFromSession():
     session = request.environ.get('beaker.session')
     return session.get('user', None)
+
+@get('/servers')
+@checkSession
+def retrieve_all_servers():
+    user = extractUserFromSession()
+    server_dao = ServerDao(AppCommonContainer().settings)
+    results = server_dao.retrieve_all_servers()
+    data = {"servers": results[0], "message": None}
+    return template('display_servers_page', title='Server List', **data)
 
 # Static Routes a la - http://stackoverflow.com/questions/10486224/bottle-static-files
 @get('/<filename:re:.*\.js>')
