@@ -1,6 +1,8 @@
 import json
 import sys
-from models.Settings import Settings
+
+from src.models import Settings
+
 """
     Utilities to load settings.
 """

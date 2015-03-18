@@ -1,6 +1,8 @@
 import unittest
-from data.AppDao import AppDao
-from models.Settings import Settings
+
+from src.data import AppDao
+from src.models import Settings
+
 
 class TestAppDao(unittest.TestCase):
     def setUp(self):

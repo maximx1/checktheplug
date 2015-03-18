@@ -1,6 +1,8 @@
 import sqlite3
-from models.App import App
+
+from src.models.App import App
 from utilities.StringOps import random_alpha_numeric
+
 
 """
     Actions surrounding the apps from the database.

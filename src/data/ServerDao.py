@@ -1,5 +1,7 @@
 import sqlite3
-from models.Server import Server
+
+from src.models.Server import Server
+
 
 """
     Operations to manage accessing the server database.
@@ -21,7 +23,7 @@ class ServerDao:
                     cur = self.conn.cursor()
                     cur.execute("INSERT INTO servers(host, url) values(?, ?)", (new_server.host, new_server.url))
                     return(Server(cur.lastrowid, new_server.host, new_server.url), None)
-            except Exception as er:
+            except sqlite3.IntegrityError as er:
                 return (None, "There was a db issue: " + str(er))
         else:
             return (None, "No server passed in")

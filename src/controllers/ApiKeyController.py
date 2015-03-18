@@ -1,11 +1,10 @@
 import random
 from bottle import get, post, auth_basic, request
-from models.AppCommonContainer import AppCommonContainer
-from models.Server import Server
-from data.UserDao import UserDao
-from data.AppDao import AppDao
-from data.ServerDao import ServerDao
-from models.BasicResponse import BasicResponse
+from src.models import AppCommonContainer
+from src.models.Server import Server
+from src.data import AppDao
+from src.data.ServerDao import ServerDao
+from src.models.BasicResponse import BasicResponse
 
 """
     Authentication validator

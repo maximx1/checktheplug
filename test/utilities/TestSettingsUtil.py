@@ -1,6 +1,8 @@
 import unittest
 import sys
-from utilities.SettingsUtil import SettingsUtil
+
+from src.utilities.SettingsUtil import SettingsUtil
+
 
 class TestSettingsUtil(unittest.TestCase):
     def setUp(self):

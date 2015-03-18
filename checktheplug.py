@@ -1,8 +1,6 @@
 from bottle import run, app
-from controllers import *
-from utilities.SettingsUtil import SettingsUtil
-from models.AppCommonContainer import AppCommonContainer
-from utilities.DatabaseSchemaBootstrap import DatabaseSchemaBootstrap
+from src.models import AppCommonContainer
+from src.utilities import DatabaseSchemaBootstrap, SettingsUtil
 from beaker.middleware import SessionMiddleware
 
 sessionOptions = {

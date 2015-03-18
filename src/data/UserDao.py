@@ -1,5 +1,7 @@
 import sqlite3
-from models.User import User
+
+from src.models.User import User
+
 
 class UserDao:
     def __init__(self, settings):

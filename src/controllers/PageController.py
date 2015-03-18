@@ -1,9 +1,7 @@
 from bottle import get, post, template, request, redirect, static_file
-from data.ServerDao import ServerDao
-from data.UserDao import UserDao
-from data.AppDao import AppDao
-from models.AppCommonContainer import AppCommonContainer
-from models.User import User
+from src.data import UserDao, ServerDao
+from src.data.AppDao import AppDao
+from src.models import AppCommonContainer
 import base64
 
 def check_session(func):

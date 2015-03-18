@@ -6,3 +6,4 @@
 *.swp
 .session_cache/
 venv/
+bin/
