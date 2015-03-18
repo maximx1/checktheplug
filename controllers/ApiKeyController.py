@@ -10,8 +10,8 @@ from models.BasicResponse import BasicResponse
 """
     Authentication validator
 """
-def authenticateBasicAuth(appshortkey, authKey):
-    return AppDao(AppCommonContainer().settings).verify_user_access(appshortkey, authKey)
+def authenticate_basic_auth(key_part_one, key_part_two):
+    return AppDao(AppCommonContainer().settings).verify_user_access(key_part_one + key_part_two)
 
 """
     Authenticate Application server
@@ -28,7 +28,7 @@ def get_is_live_key(inKey):
     return BasicResponse(randKey, "hash" + str(randKey) + ":" + inKey)
 
 @post('/api/app/lookup')
-@auth_basic(authenticateBasicAuth)
+@auth_basic(authenticate_basic_auth)
 def get_app_details():
     appshortkey, _ = request.auth or (None, None)
     if request.json:
@@ -48,7 +48,7 @@ def show_settings():
     return shownSettings
 
 @post('/api/app/env/vars')
-@auth_basic(authenticateBasicAuth)
+@auth_basic(authenticate_basic_auth)
 def get_env_variables():
     appshortkey, _ = request.auth or (None, None)
     return AppDao(AppCommonContainer().settings).get_env_variables(appshortkey)
@@ -62,7 +62,7 @@ def get_apps_by_name():
     return BasicResponse("none", "Search term not found")
 
 @get('/api/app/files/docker')
-@auth_basic(authenticateBasicAuth)
+@auth_basic(authenticate_basic_auth)
 def get_app_dockerfile():
     appshortkey, _ = request.auth or (None, None)
     dockerfile = AppDao(AppCommonContainer().settings).get_app_dockerfile(appshortkey)

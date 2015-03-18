@@ -73,10 +73,10 @@ class AppDao:
     """
         Verifies that the authKey is registered to the appshortkey.
     """
-    def verify_user_access(self, appshortkey, auth_key):
+    def verify_user_access(self, auth_key):
         with self.conn:
             cur = self.conn.cursor()
-            cur.execute("select ak.authKey from authKeys ak join applications a on ak.app_id = a.id where a.appshortkey = ? and ak.authKey = ?", (appshortkey, auth_key))
+            cur.execute("select authKey from authKeys where authKey = ?", (auth_key,))
             app_row = cur.fetchone()
             return True if app_row else False
 
