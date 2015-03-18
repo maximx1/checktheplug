@@ -58,7 +58,7 @@ def get_apps_by_name():
     search_term = request.json['searchTerm']
     apps = AppDao(AppCommonContainer().settings).search_apps_by_name(search_term)
     if apps:
-        return {"status": "ok", "apps": list(map(lambda x: x.toDict(), apps))}
+        return {"status": "ok", "apps": list(map(lambda x: x.to_dict(), apps))}
     return BasicResponse("none", "Search term not found")
 
 @get('/api/app/files/docker')
@@ -76,5 +76,5 @@ def add_new_server():
     server = Server.from_dict(request.json)
     if server:
         ServerDao(AppCommonContainer().settings).add(server)
-        return BasicResponse("ok").toDict()
-    return BasicResponse("error", "Sent data incorrect").toDict()
+        return BasicResponse("ok").to_dict()
+    return BasicResponse("error", "Sent data incorrect").to_dict()

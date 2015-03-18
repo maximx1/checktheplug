@@ -1,11 +1,11 @@
 class App:
-    def __init__(self, id, appshortkey, name, description, host, dockerfileTemplate):
+    def __init__(self, id, appshortkey, name, description, host, dockerfile_template):
         self.id = id
         self.appshortkey = appshortkey
         self.name = name
         self.description = description
         self.host = host
-        self.dockerfileTemplate = dockerfileTemplate
+        self.dockerfile_template = dockerfile_template
     
-    def toDict(self):
-        return {"id": self.id, "appshortkey": self.appshortkey, "name": self.name, "description": self.description, "host": self.host}
+    def to_dict(self):
+        return self.__dict__
