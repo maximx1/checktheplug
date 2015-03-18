@@ -6,24 +6,24 @@ from models.AppCommonContainer import AppCommonContainer
 from models.User import User
 import base64
 
-def checkSession(func):
+def check_session(func):
     def wrapped(*args, **kwargs):
-        if not extractUserFromSession():
+        if not extract_user_from_session():
             redirect('/login')
         return func(*args, **kwargs)
     return wrapped
 
 @get('/')
-@checkSession
+@check_session
 def loadHomepage():
-    return template('home_page', user = extractUserFromSession())
+    return template('home_page', user = extract_user_from_session())
 
 @get('/login')
-def loadLogin():
+def load_login():
     return template('login_page', title='Check The Plug, Time to sign in')
 
 @post('/login')
-def attemptLogin():
+def attempt_login():
     username = request.forms.get('username')
     password = request.forms.get('password')
     user = UserDao(AppCommonContainer().settings).login(username, password)
@@ -41,26 +41,26 @@ def logout():
     redirect('/login')
 
 @get('/search')
-@checkSession
-def loadSearchPage():
+@check_session
+def load_search_page():
     return template('search_page', title='Check The Plug Search', searchTerm=None)
 
 @get('/search/<term>')
-def loadSearchPageWithTerm(term):
+def load_search_page_with_term(term):
     return template('search_page', title='Check The Plug Search', searchTerm=term)
 
 @get('/create')
-@checkSession
-def loadCreatePage():
+@check_session
+def load_create_page():
     return template('create_page', title='Check The Plug Create', message=None)
 
 @post('/create')
-@checkSession
-def attemptCreatePage():
+@check_session
+def attempt_create_page():
     appname = request.forms.get('appname')
     description = request.forms.get('description')
     host = request.forms.get('host')
-    user = extractUserFromSession()
+    user = extract_user_from_session()
     dockerfile = request.files.get('dockerfile')
     dockerfileEncoded = base64.b64encode(dockerfile.file.read()).decode("utf-8") if dockerfile else ""
     if user:
@@ -71,31 +71,31 @@ def attemptCreatePage():
             redirect('/app/' + str(newId))
 
 @get('/app/<id>')
-@checkSession
-def loadAppPage(id):
-    user = extractUserFromSession()
+@check_session
+def load_app_page(id):
+    user = extract_user_from_session()
     appDao = AppDao(AppCommonContainer().settings)
-    results = appDao.getAppDetailsById(id)
+    results = appDao.get_app_details_by_id(id)
     message = "Access Denied"
-    canDisplayContents = False
+    can_display_contents = False
     if "status" in results:
         message = results["status"]
     else:
         if user.id != int(results["owner"]):
-            if appDao.verifyUserAccessToApp(user.id, id, True):
-                canDisplayContents = True
+            if appDao.verify_user_access_to_app(user.id, id, True):
+                can_display_contents = True
         else:
-            canDisplayContents = True
-    return template('display_app_page', title='App Information', message=None if canDisplayContents else message, appData=results if canDisplayContents else None)
+            can_display_contents = True
+    return template('display_app_page', title='App Information', message=None if can_display_contents else message, appData=results if can_display_contents else None)
 
-def extractUserFromSession():
+def extract_user_from_session():
     session = request.environ.get('beaker.session')
     return session.get('user', None)
 
 @get('/servers')
-@checkSession
+@check_session
 def retrieve_all_servers():
-    user = extractUserFromSession()
+    user = extract_user_from_session()
     server_dao = ServerDao(AppCommonContainer().settings)
     results = server_dao.retrieve_all_servers()
     data = {"servers": results[0], "message": None}
