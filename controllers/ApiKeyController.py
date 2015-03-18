@@ -11,6 +11,7 @@ from models.BasicResponse import BasicResponse
     Authentication validator
 """
 def authenticate_basic_auth(key_part_one, key_part_two):
+    print(key_part_one+key_part_two)
     return AppDao(AppCommonContainer().settings).verify_user_access(key_part_one + key_part_two)
 
 """
@@ -34,11 +35,7 @@ def get_app_details():
     if request.json:
         id = request.json.get('id', None)
         if id:
-            result = AppDao(AppCommonContainer().settings).get_app_details_by_id(id)
-            retrievedAppShortKey = result.get('appshortkey', None)
-            if retrievedAppShortKey and appshortkey != retrievedAppShortKey:
-                return {"status": "appshortkey doesn't belong to id"}
-            return result
+            return AppDao(AppCommonContainer().settings).get_app_details_by_id(id)
     return AppDao(AppCommonContainer().settings).get_app_details(appshortkey)
 
 @get('/settings')
