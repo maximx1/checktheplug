@@ -1,6 +1,6 @@
 import sqlite3
 
-from src.models.Server import Server
+from checktheplug.models.Server import Server
 
 
 """

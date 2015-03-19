@@ -1,7 +1,7 @@
 import sqlite3
 
-from src.models.App import App
-from utilities.StringOps import random_alpha_numeric
+from checktheplug.models.App import App
+from checktheplug.utilities.StringOps import random_alpha_numeric
 
 
 """

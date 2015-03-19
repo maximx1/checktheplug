@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-from src.utilities.SettingsUtil import SettingsUtil
+from checktheplug.utilities.SettingsUtil import SettingsUtil
 
 
 class TestSettingsUtil(unittest.TestCase):

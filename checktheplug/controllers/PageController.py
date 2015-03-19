@@ -1,7 +1,8 @@
 from bottle import get, post, template, request, redirect, static_file
-from src.data import UserDao, ServerDao
-from src.data.AppDao import AppDao
-from src.models import AppCommonContainer
+from checktheplug.data.UserDao import UserDao
+from checktheplug.data.ServerDao import ServerDao
+from checktheplug.data.AppDao import AppDao
+from checktheplug.models.AppCommonContainer import AppCommonContainer
 import base64
 
 def check_session(func):

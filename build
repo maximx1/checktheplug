@@ -1,0 +1,7 @@
+rm -rf bin/
+mkdir bin/
+cp -R checktheplug bin/
+cp -R static bin/
+cp -R config bin/
+cp -R views bin/
+cp checktheplug.py bin/

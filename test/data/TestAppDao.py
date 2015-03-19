@@ -1,7 +1,7 @@
 import unittest
 
-from src.data import AppDao
-from src.models import Settings
+from checktheplug.data import AppDao
+from checktheplug.models import Settings
 
 
 class TestAppDao(unittest.TestCase):

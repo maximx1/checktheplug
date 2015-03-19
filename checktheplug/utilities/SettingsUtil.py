@@ -1,7 +1,7 @@
 import json
 import sys
 
-from src.models import Settings
+from checktheplug.models.Settings import Settings
 
 """
     Utilities to load settings.

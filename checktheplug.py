@@ -1,7 +1,10 @@
 from bottle import run, app
-from src.models import AppCommonContainer
-from src.utilities import DatabaseSchemaBootstrap, SettingsUtil
+from checktheplug.models.AppCommonContainer import AppCommonContainer
+from checktheplug.utilities.DatabaseSchemaBootstrap import DatabaseSchemaBootstrap
+from checktheplug.utilities.SettingsUtil import SettingsUtil
 from beaker.middleware import SessionMiddleware
+import checktheplug.controllers.ApiKeyController
+import checktheplug.controllers.PageController
 
 sessionOptions = {
     'session.type': 'file',

@@ -1,6 +1,6 @@
 import sqlite3
 
-from src.models.User import User
+from checktheplug.models.User import User
 
 
 class UserDao:
